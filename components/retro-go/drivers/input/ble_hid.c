@@ -911,7 +911,7 @@ void rg_ble_hid_init(void)
         err = nvs_flash_init();
     }
 
-    err = nimble_port_init();
+    nimble_port_init(); err = ESP_OK;
     if (err != ESP_OK)
     {
         RG_LOGE("nimble_port_init failed: 0x%x -- BLE gamepad disabled\n", err);
