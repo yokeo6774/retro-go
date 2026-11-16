@@ -4,9 +4,11 @@
 // Pinout traced from the vendor schematic (ES3C28P_Schematic.pdf).
 #define RG_TARGET_NAME             "ES3C28P"
 
-// Storage: no SD slot on this board, use a FAT partition on the 16MB internal flash
+// Storage: MicroSD card via SDMMC
+#define RG_STORAGE_DRIVER           2       // 2 = SDMMC
+#define RG_STORAGE_HOST             SDMMC_HOST_SLOT_1
+#define RG_STORAGE_SPEED            SDMMC_FREQ_DEFAULT
 #define RG_STORAGE_ROOT             "/sd"
-#define RG_STORAGE_FLASH_PARTITION  "vfs"
 
 // Audio: ES8311 codec on I2S (codec is the slave), driven from a 256*fs MCK
 #define RG_AUDIO_USE_INT_DAC        0
@@ -128,3 +130,6 @@
 // Some controllers only advertise the HID service UUID in their scan response, so
 // matching on the advertised name as well makes the first pairing more reliable.
 #define RG_BLE_NAME_FILTER {"Stadia", "Gamepad", "Controller"}
+#define RG_GPIO_SDSPI_CLK           GPIO_NUM_38
+#define RG_GPIO_SDSPI_CMD           GPIO_NUM_40
+#define RG_GPIO_SDSPI_D0            GPIO_NUM_39
