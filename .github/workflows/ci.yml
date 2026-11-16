@@ -22,7 +22,7 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Build
+    - name: Build Docker Environment
       uses: docker/build-push-action@v6
       with:
         context: .
@@ -31,12 +31,17 @@ jobs:
         cache-to: type=gha,mode=max
         load: true
 
-    - name: Extract binaries from docker image
+    - name: Build ES3C28P IMG inside container
       run: |
-        docker run --rm -v $(pwd)/build:/build retro-go:latest sh -c "cp /app/*.fw /build"
+        mkdir -p $(pwd)/build
+        docker run --rm -v $(pwd):/workspace -w /workspace retro-go:latest bash -c "
+          source /opt/esp/idf/export.sh 2>/dev/null || source \$IDF_PATH/export.sh;
+          python3 rg_tool.py --target es3c28p build-img;
+          cp *.img /workspace/build/
+        "
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: binaries
-        path: build/*.fw
+        name: es3c28p-img
+        path: build/*.img
