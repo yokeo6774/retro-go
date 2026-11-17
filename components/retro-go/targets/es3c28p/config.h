@@ -4,10 +4,9 @@
 // Pinout traced from the vendor schematic (ES3C28P_Schematic.pdf).
 #define RG_TARGET_NAME             "ES3C28P"
 
-// Storage: MicroSD card via SDMMC
-#define RG_STORAGE_DRIVER           2       // 2 = SDMMC
-#define RG_STORAGE_HOST             SDMMC_HOST_SLOT_1
-#define RG_STORAGE_SPEED            SDMMC_FREQ_DEFAULT
+// Storage: MicroSD card via SDMMC (1-bit mode)
+#define RG_STORAGE_SDMMC_HOST       SDMMC_HOST_SLOT_1
+#define RG_STORAGE_SDMMC_SPEED      SDMMC_FREQ_DEFAULT
 #define RG_STORAGE_ROOT             "/sd"
 
 // Audio: ES8311 codec on I2S (codec is the slave), driven from a 256*fs MCK
